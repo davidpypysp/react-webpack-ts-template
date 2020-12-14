@@ -4,6 +4,7 @@ const path = require("path");
 const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -15,12 +16,6 @@ module.exports = {
                 test: /\.ts(x?)$/,
                 use: "ts-loader",
                 exclude: /node_modules/,
-            },
-            {
-                test: /\.(js|ts|tsx)$/,
-                enforce: "pre",
-                exclude: /node_modules|(\.worker.ts$)/,
-                loader: "eslint-loader",
             },
             {
                 type: "javascript/auto",
@@ -83,6 +78,7 @@ module.exports = {
     plugins: [
         new ProgressBarPlugin(),
         new MiniCssExtractPlugin(),
+        new ESLintPlugin(),
         new HtmlWebpackPlugin({
             template: "assets/index.html",
         }),
