@@ -1,16 +1,13 @@
 module.exports = {
     env: {
-        browser: true
+        browser: true,
     },
     settings: {
         react: {
             version: "detect",
         },
     },
-    extends: [
-        "plugin:react/recommended",
-        "prettier",
-    ],
+    extends: ["plugin:react/recommended", "prettier"],
     parser: "@typescript-eslint/parser",
     parserOptions: {
         ecmaFeatures: {
@@ -26,7 +23,7 @@ module.exports = {
         "max-classes-per-file": 0,
         "react-jsx-filename-extension": 0,
         "react/display-name": 0,
-        "no-console": ["warn", { "allow": ["warn", "error"] }],
+        "no-console": ["warn", { allow: ["warn", "error"] }],
         semi: ["error", "always"],
         curly: "error",
         eqeqeq: "error",
@@ -37,8 +34,8 @@ module.exports = {
             "error",
             {
                 newIsCap: true,
-                capIsNew: false
-            }
+                capIsNew: false,
+            },
         ],
         "new-parens": "error",
         "no-trailing-spaces": "error",
@@ -54,7 +51,7 @@ module.exports = {
             {
                 printWidth: 80,
                 tabWidth: 4,
-            }
-        ]
-    }
-}
+            },
+        ],
+    },
+};

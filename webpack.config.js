@@ -20,7 +20,7 @@ module.exports = {
                 test: /\.(js|ts|tsx)$/,
                 enforce: "pre",
                 exclude: /node_modules|(\.worker.ts$)/,
-                loader: "eslint-loader"
+                loader: "eslint-loader",
             },
             {
                 type: "javascript/auto",
@@ -29,11 +29,7 @@ module.exports = {
             },
             {
                 test: /\.(less|css|scss)$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader",
-                ]
+                use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
             },
             {
                 test: /\.(png|svg|jpg|gif)$/,
@@ -91,5 +87,5 @@ module.exports = {
             template: "assets/index.html",
         }),
         new CompressionPlugin(),
-    ]
+    ],
 };
