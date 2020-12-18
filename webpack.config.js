@@ -83,5 +83,8 @@ module.exports = {
             template: "assets/index.html",
         }),
         new CompressionPlugin(),
+        new webpack.DefinePlugin({
+            "process.env": "{}",
+        }),
     ],
 };
