@@ -73,6 +73,7 @@ module.exports = {
         host: "0.0.0.0",
         contentBase: __dirname + "/assets",
         historyApiFallback: true,
+        port: 9000,
     },
     devtool: "eval-source-map",
     plugins: [

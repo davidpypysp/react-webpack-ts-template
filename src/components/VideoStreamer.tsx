@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { createUseStyles } from "react-jss";
 import {
     createMouseEvent,
     createMouseWheelEvent,
 } from "src/utils/input_handler";
-import WebrtcClient from "src/webrtc/webrtc_client";
+import { StoreContext } from "./App";
 
 const useStyles = createUseStyles({
     streamerDiv: {
@@ -22,24 +22,22 @@ const useStyles = createUseStyles({
 const VideoStreamer = () => {
     const classes = useStyles();
     const videoElementId = "video-streamer";
+    const { connection } = useContext(StoreContext);
     useEffect(() => {
-        const webrtcClient = new WebrtcClient("ws://localhost:8082/webrtc");
-        webrtcClient.addRemoteStream(
-            {
-                video: {
-                    id: "subscribed_video",
-                    src: "ros_image:/image_raw",
-                },
+        connection.initVideoConn();
+        connection.connectVideoStream({
+            id: "test-video",
+            videoSrc: "ros_image:/image_raw",
+            onStreamConnected: (stream) => {
+                console.warn("addRemoteStream ", stream);
+                const videoElement = document.getElementById(
+                    videoElementId
+                ) as HTMLVideoElement;
+                videoElement.srcObject = stream;
             },
-            async (event) => {
-                console.warn("addRemoteStream then", event);
-                const video: any = document.getElementById(videoElementId);
-                video.srcObject = event.stream;
-            }
-        );
-        webrtcClient.connect();
+        });
     }, []);
-    const [dimension, setDimension] = useState<[number, number]>([-1, -1]);
+    const [dimension, setDimension] = useState<[number, number]>(null);
 
     return (
         <div className={classes.streamerDiv}>
@@ -47,6 +45,7 @@ const VideoStreamer = () => {
                 id={videoElementId}
                 className={classes.videoStreamer}
                 autoPlay={true}
+                crossOrigin={"anonymous"}
                 onLoadedMetadata={(event) => {
                     const target: any = event.target;
                     setDimension([target.videoWidth, target.videoHeight]);
@@ -55,17 +54,23 @@ const VideoStreamer = () => {
                 }}
                 onMouseDown={(e) => {
                     e.preventDefault();
-                    createMouseEvent(e.nativeEvent, dimension);
+                    connection.sendInputEvent(
+                        createMouseEvent(e.nativeEvent, dimension)
+                    );
                 }}
                 onMouseUp={(e) => {
                     e.preventDefault();
-                    createMouseEvent(e.nativeEvent, dimension);
+                    connection.sendInputEvent(
+                        createMouseEvent(e.nativeEvent, dimension)
+                    );
                 }}
                 onDoubleClick={(e) => {
                     console.info("double click", e);
                 }}
                 onWheel={(e) => {
-                    createMouseWheelEvent(e.nativeEvent);
+                    connection.sendInputEvent(
+                        createMouseWheelEvent(e.nativeEvent)
+                    );
                 }}
                 onContextMenu={(e) => {
                     e.preventDefault();
