@@ -5,8 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack serve --config ./webpack.config.js --mode development",
-    "build": "webpack --mode production",
-    "build_server": "webpack --config ./webpack.server.config.js"
+    "build_fe": "webpack --config ./webpack.config.js --mode production",
+    "build_server": "webpack --config ./webpack.server.config.js",
+    "build_all": "yarn build_fe && yarn build_server"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.10.0",
