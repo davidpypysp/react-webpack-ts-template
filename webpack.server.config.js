@@ -23,7 +23,7 @@ module.exports = {
         minimize: false,
     },
     output: {
-        path: path.resolve(__dirname, "server_dist"),
+        path: path.resolve(__dirname, "dist"),
         filename: "server.bundle.js",
     },
 };

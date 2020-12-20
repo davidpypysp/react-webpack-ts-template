@@ -4,12 +4,12 @@ const compression = require("compression");
 
 const server = express();
 const port = 5000;
-const dist_dir = path.join(__dirname, "..", "dist");
+const dist_dir = __dirname;
 
 server.use(compression());
 server.use(express.static(dist_dir));
 server.get("*", (req, res) => {
-    res.sendFile(path.join(dist_dir, "/index.html"));
+    res.sendFile(path.resolve(dist_dir, "index.html"));
 });
 server.listen(port);
 

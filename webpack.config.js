@@ -81,7 +81,7 @@ module.exports = {
         new MiniCssExtractPlugin(),
         new ESLintPlugin(),
         new HtmlWebpackPlugin({
-            template: "assets/index.html",
+            template: "src/index.html",
         }),
         new CompressionPlugin(),
         new webpack.DefinePlugin({
